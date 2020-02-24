@@ -15,8 +15,7 @@ repositories {
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 21
@@ -25,12 +24,18 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:support-v4:$androidSupportVersion"
-    implementation "com.android.support:support-v13:$androidSupportVersion"
-    implementation "com.android.support:appcompat-v7:$androidSupportVersion"
-    implementation "com.android.support:palette-v7:$androidSupportVersion"
-    implementation "com.android.support:recyclerview-v7:$androidSupportVersion"
-    implementation "com.android.support:cardview-v7:$androidSupportVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.squareup.okhttp3:okhttp:3.1.2'
     implementation files('libs/volley.jar')
+
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+
 }

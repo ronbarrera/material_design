@@ -1,11 +1,12 @@
 package com.example.xyzreader.ui;
 
 import android.app.LoaderManager;
+import android.content.Loader;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.Loader;
+
 import android.database.Cursor;
 import android.os.Bundle;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -55,16 +56,13 @@ public class ArticleListActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
-        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        mToolbar = findViewById(R.id.main_toolbar);
 
-
-        final View toolbarContainerView = findViewById(R.id.toolbar_container);
-
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout =  findViewById(R.id.swipe_refresh_layout);
         mSwipeRefreshLayout.setEnabled(false);
 
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView =  findViewById(R.id.recycler_view);
         getLoaderManager().initLoader(0, null, this);
 
         if (savedInstanceState == null) {
@@ -112,8 +110,9 @@ public class ArticleListActivity extends AppCompatActivity implements
         return ArticleLoader.newAllArticlesInstance(this);
     }
 
+
     @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor cursor) {
         Adapter adapter = new Adapter(cursor);
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
@@ -124,9 +123,25 @@ public class ArticleListActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onLoaderReset(android.content.Loader<Cursor> loader) {
         mRecyclerView.setAdapter(null);
     }
+
+//    @Override
+//    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+//        Adapter adapter = new Adapter(cursor);
+//        adapter.setHasStableIds(true);
+//        mRecyclerView.setAdapter(adapter);
+//        int columnCount = getResources().getInteger(R.integer.list_column_count);
+//        StaggeredGridLayoutManager sglm =
+//                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
+//        mRecyclerView.setLayoutManager(sglm);
+//    }
+
+//    @Override
+//    public void onLoaderReset(Loader<Cursor> loader) {
+//        mRecyclerView.setAdapter(null);
+//    }
 
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
         private Cursor mCursor;

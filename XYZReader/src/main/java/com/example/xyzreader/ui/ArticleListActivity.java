@@ -9,11 +9,13 @@ import android.content.IntentFilter;
 
 import android.database.Cursor;
 import android.os.Bundle;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -68,8 +70,9 @@ public class ArticleListActivity extends AppCompatActivity implements
         if (savedInstanceState == null) {
             refresh();
         }
-
     }
+
+
 
 
     private void refresh() {
@@ -117,8 +120,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
         int columnCount = getResources().getInteger(R.integer.list_column_count);
-        StaggeredGridLayoutManager sglm =
-                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
     }
 
@@ -127,24 +129,9 @@ public class ArticleListActivity extends AppCompatActivity implements
         mRecyclerView.setAdapter(null);
     }
 
-//    @Override
-//    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-//        Adapter adapter = new Adapter(cursor);
-//        adapter.setHasStableIds(true);
-//        mRecyclerView.setAdapter(adapter);
-//        int columnCount = getResources().getInteger(R.integer.list_column_count);
-//        StaggeredGridLayoutManager sglm =
-//                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
-//        mRecyclerView.setLayoutManager(sglm);
-//    }
-
-//    @Override
-//    public void onLoaderReset(Loader<Cursor> loader) {
-//        mRecyclerView.setAdapter(null);
-//    }
-
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
         private Cursor mCursor;
+
 
         public Adapter(Cursor cursor) {
             mCursor = cursor;
@@ -158,7 +145,12 @@ public class ArticleListActivity extends AppCompatActivity implements
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.list_item_article, parent, false);
+            View view;
+            if(getResources().getBoolean(R.bool.list_multi_column))
+               view = getLayoutInflater().inflate(R.layout.list_item_article_card, parent, false);
+             else
+                 view = getLayoutInflater().inflate(R.layout.list_item_article_tile, parent, false);
+
             final ViewHolder vh = new ViewHolder(view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

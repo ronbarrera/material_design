@@ -1,0 +1,235 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+                <ImageView
+                    android:id="@+id/photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/photo_placeholder"
+                    android:scaleType="centerCrop" />
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:behavior_overlapTop="180dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="150dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            android:background="@color/theme_white"
+            android:elevation="8dp">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/theme_primary"
+                android:padding="16dp"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/article_title_detail"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/theme_white"
+                    android:text="This is the title"/>
+
+                <TextView
+                    android:id="@+id/article_author_detail"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/theme_white"
+                    android:text="this is the details"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/article_date_detail"
+                style="@style/TextAppearance.MaterialComponents.Overline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingEnd="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Jun 20, 2013"/>
+
+            <TextView
+                android:id="@+id/article_body_detail"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp"
+                android:textColor="#1C1C1C"
+                android:textColorLink="@color/theme_accent"
+                android:textSize="@dimen/detail_body_text_size"
+                android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />
+
+        </LinearLayout>
+
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/image_cardview"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="#F4F4F8">-->
+
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            android:orientation="vertical">-->
+
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/article_date_detail"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginBottom="8dp"-->
+<!--                                android:text="Jun 20, 2013"/>-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/article_body_detail"-->
+<!--                                style="?android:attr/textAppearanceMedium"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:textColor="#1C1C1C"-->
+<!--                                android:textColorLink="@color/theme_accent"-->
+<!--                                android:textSize="@dimen/detail_body_text_size"-->
+<!--                                android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </androidx.cardview.widget.CardView>-->
+
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/image_cardview"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginStart="150dp"-->
+<!--            android:layout_marginEnd="150dp"-->
+<!--            android:background="#F4F4F8">-->
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="8dp"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/linear_layout_detail"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="#8C1C1C1C"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:layout_gravity="bottom"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/article_title_detail"-->
+<!--                        style="@style/TextAppearance.AppCompat.Headline"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="This is the title"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/article_author_detail"-->
+<!--                        style="@style/TextAppearance.AppCompat.Body1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="this is the details"-->
+<!--                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />-->
+
+<!--                </LinearLayout>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/article_date_detail"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:text="Jun 20, 2013"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/article_body_detail"-->
+<!--                    style="?android:attr/textAppearanceMedium"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="#1C1C1C"-->
+<!--                    android:textColorLink="@color/theme_accent"-->
+<!--                    android:textSize="@dimen/detail_body_text_size"-->
+<!--                    android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </androidx.cardview.widget.CardView>-->
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom|end">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/expand_fab"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_expand"
+            android:layout_margin="@dimen/fab_margin"
+            app:backgroundTint="@color/theme_primary"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/share_fab"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_share"
+            android:onClick="onShareClick"
+            app:backgroundTint="@color/theme_primary" />
+    </LinearLayout>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+

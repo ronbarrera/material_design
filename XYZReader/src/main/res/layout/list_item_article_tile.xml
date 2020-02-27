@@ -1,0 +1,73 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/list_horizontal_side_margin"
+    android:layout_marginEnd="@dimen/list_horizontal_side_margin"
+    android:layout_marginTop="@dimen/list_vertical_side_margin"
+    android:layout_marginBottom="@dimen/list_vertical_side_margin"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.xyzreader.ui.DynamicHeightNetworkImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/photo_placeholder"
+            android:tint="#6F000000"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
+
+        <TextView
+            android:id="@+id/article_title"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:textColor="@color/theme_white"
+            android:fontFamily="sans-serif-condensed-medium"
+            tools:text="Mysteries of teh Universe Solved" />
+
+        <TextView
+            android:id="@+id/article_author"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:textColor="@color/theme_white"
+            tools:text="By Ron Belt" />
+
+        <TextView
+            android:id="@+id/article_date"
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="end"
+            android:ellipsize="end"
+            android:textColor="@color/theme_white"
+            tools:text="Jan 10, 2014" />
+        </LinearLayout>
+
+    </FrameLayout>
+</androidx.cardview.widget.CardView>

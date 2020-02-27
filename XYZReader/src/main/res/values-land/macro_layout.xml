@@ -2,4 +2,9 @@
     <!-- detail -->
     <dimen name="detail_photo_height">224dp</dimen>
     <dimen name="detail_inner_horiz_margin">112dp</dimen>
+    <dimen name="recycler_horizontal_side_padding">8dp</dimen>
+
+
+    <bool name="list_multi_column">true</bool>
+
 </resources>

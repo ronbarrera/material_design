@@ -22,11 +22,16 @@ import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ShareCompat;
@@ -34,9 +39,13 @@ import androidx.palette.graphics.Palette;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
@@ -63,6 +72,9 @@ public class ArticleDetailFragment extends Fragment implements
     private ImageView mPhotoView;
     private TextView mTitleView;
     private TextView mAuthorView;
+    private TextView mDateView;
+    private TextView mBodyView;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
     private int mScrollY;
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
@@ -72,6 +84,13 @@ public class ArticleDetailFragment extends Fragment implements
     private SimpleDateFormat outputFormat = new SimpleDateFormat();
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2,1,1);
+
+    Toolbar toolbar;
+    Menu menu;
+    MenuItem item;
+
+    ImagePopup imagePopup;
+    boolean isLand = false;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -92,6 +111,7 @@ public class ArticleDetailFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItemId = getArguments().getLong(ARG_ITEM_ID);
         }
@@ -99,7 +119,7 @@ public class ArticleDetailFragment extends Fragment implements
         mIsCard = getResources().getBoolean(R.bool.detail_is_card);
         mStatusBarFullOpacityBottom = getResources().getDimensionPixelSize(
                 R.dimen.detail_card_top_margin);
-        setHasOptionsMenu(true);
+
     }
 
     public ArticleDetailActivity getActivityCast() {
@@ -115,14 +135,22 @@ public class ArticleDetailFragment extends Fragment implements
         // fragments because their mIndex is -1 (haven't been added to the activity yet). Thus,
         // we do this in onActivityCreated.
         getLoaderManager().initLoader(0, null, this);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
+        setHasOptionsMenu(true);
 
-        Toolbar toolbar = mRootView.findViewById(R.id.toolbar);
+        isLand = (mRootView.findViewById(R.id.expand_fab) != null) ? true : false;
+
+
+
+
+
+        toolbar = mRootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -135,47 +163,66 @@ public class ArticleDetailFragment extends Fragment implements
             }
         });
 
+        toolbar.inflateMenu(R.menu.main);
+        menu = toolbar.getMenu();
+        menu.findItem(R.id.action_share).setVisible(false);
+
+
+        Log.d(TAG, "onCreateView called");
+
+
+
+        collapsingToolbarLayout = mRootView.findViewById(R.id.collapsingToolbar);
         mPhotoView = mRootView.findViewById(R.id.photo);
         mTitleView = mRootView.findViewById(R.id.article_title_detail);
         mAuthorView = mRootView.findViewById(R.id.article_author_detail);
+        mDateView = mRootView.findViewById(R.id.article_date_detail);
+        mBodyView = mRootView.findViewById(R.id.article_body_detail);
+        mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareAction();
+            }
+        });
 
-//        mDrawInsetsFrameLayout = (DrawInsetsFrameLayout)
-//                mRootView.findViewById(R.id.draw_insets_frame_layout);
-//        mDrawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
-//            @Override
-//            public void onInsetsChanged(Rect insets) {
-//                mTopInset = insets.top;
-//            }
-//        });
-//
-//        mScrollView = (ObservableScrollView) mRootView.findViewById(R.id.scrollview);
-//        mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
-//            @Override
-//            public void onScrollChanged() {
-//                mScrollY = mScrollView.getScrollY();
-//                getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
-//                mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
-//                updateStatusBar();
-//            }
-//        });
-//
-//        mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
-//        mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
-//
-//        mStatusBarColorDrawable = new ColorDrawable(0);
-//
-//        mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
-//                        .setType("text/plain")
-//                        .setText("Some sample text")
-//                        .getIntent(), getString(R.string.action_share)));
-//            }
-//        });
+        final LinearLayout articleTitleContainer = mRootView.findViewById(R.id.linear_layout_detail);
+        AppBarLayout appBarLayout = mRootView.findViewById(R.id.appBar);
+
+        imagePopup = new ImagePopup(getContext());
+
+        if(!isLand) {
+            appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+                @Override
+                public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+                    float amountVisible = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
+                    articleTitleContainer.setAlpha(1 - amountVisible * 3);
+                    Log.d(TAG, "alpha is = " + articleTitleContainer.getAlpha());
+
+                    Log.d(TAG, "i is = " + i);
+
+                    if (articleTitleContainer.getAlpha() == -2)
+                        menu.findItem(R.id.action_share).setVisible(true);
+                    else
+                        menu.findItem(R.id.action_share).setVisible(false);
+                }
+            });
+        }
 
         bindViews();
-        //updateStatusBar();
+
+
+        if(isLand) {
+            mRootView.findViewById(R.id.expand_fab).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, "expand_fab clicked");
+                    imagePopup.viewPopup();
+
+                }
+            });
+        }
+
+
         return mRootView;
     }
 
@@ -193,6 +240,7 @@ public class ArticleDetailFragment extends Fragment implements
 //        mStatusBarColorDrawable.setColor(color);
 //        mDrawInsetsFrameLayout.setInsetBackground(mStatusBarColorDrawable);
 //    }
+
 
     static float progress(float v, float min, float max) {
         return constrain((v - min) / (max - min), 0, 1);
@@ -220,21 +268,8 @@ public class ArticleDetailFragment extends Fragment implements
     }
 
         private void bindViews() {
-        CollapsingToolbarLayout collapsingToolbarLayout = mRootView.findViewById(R.id.collapsingToolbar);
-
-
-        Log.d("ArticleDetailFragment", "bindViews called");
 
         if(mCursor != null) {
-            Log.d("ArticleDetailFragment", "mCursor != null");
-
-            String title = mCursor.getString(ArticleLoader.Query.TITLE);
-            //collapsingToolbarLayout.setTitle(title);
-            mTitleView.setText(title);
-
-            String author = mCursor.getString(ArticleLoader.Query.AUTHOR);
-            mAuthorView.setText("by " + author);
-
 
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
@@ -242,12 +277,8 @@ public class ArticleDetailFragment extends Fragment implements
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
                             Bitmap bitmap = imageContainer.getBitmap();
                             if (bitmap != null) {
-                                Palette p = Palette.generate(bitmap, 12);
-                                mMutedColor = p.getDarkMutedColor(0xFF333333);
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
-//                                mRootView.findViewById(R.id.meta_bar)
-//                                        .setBackgroundColor(mMutedColor);
-                                //updateStatusBar();
+                                imagePopup.initiatePopup(mPhotoView.getDrawable()); // Load Image from Drawable
                             }
                         }
 
@@ -256,6 +287,28 @@ public class ArticleDetailFragment extends Fragment implements
 
                         }
                     });
+
+            String title = mCursor.getString(ArticleLoader.Query.TITLE);
+            String author = mCursor.getString(ArticleLoader.Query.AUTHOR);
+
+
+            collapsingToolbarLayout.setTitle(title);
+            collapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);
+            mTitleView.setText(title);
+            mAuthorView.setText("by " + author);
+            Date publishedDate = parsePublishedDate();
+            if (!publishedDate.before(START_OF_EPOCH.getTime())) {
+                mDateView.setText(Html.fromHtml(
+                        DateUtils.getRelativeTimeSpanString(
+                                publishedDate.getTime(),
+                                System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
+                                DateUtils.FORMAT_ABBREV_ALL).toString()));
+            } else {
+                mDateView.setText(Html.fromHtml(
+                        outputFormat.format(publishedDate)));
+            }
+            mBodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
+
 
         }
     }
@@ -365,5 +418,35 @@ public class ArticleDetailFragment extends Fragment implements
         return mIsCard
                 ? (int) mPhotoContainerView.getTranslationY() + mPhotoView.getHeight() - mScrollY
                 : mPhotoView.getHeight() - mScrollY;
+    }
+
+
+    public void shareAction() {
+        startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
+                .setType("text/plain")
+                .setText(mTitleView.getText().toString())
+                .getIntent(), getString(R.string.action_share)));
+
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_share).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                shareAction();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

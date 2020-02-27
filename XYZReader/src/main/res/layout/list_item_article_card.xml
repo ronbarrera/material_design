@@ -3,10 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="4dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginRight="4dp"
-    android:layout_marginBottom="4dp"
+    android:layout_margin="8dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground"
@@ -44,7 +41,7 @@
 
         <TextView
             android:id="@+id/article_title"
-            style="@style/TextAppearance.AppCompat.Headline"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -53,7 +50,6 @@
             android:ellipsize="end"
             android:maxLines="4"
             android:textColor="#1C1C1C"
-            android:textSize="20sp"
             android:fontFamily="sans-serif-condensed-medium"
             app:layout_constraintBottom_toTopOf="@id/article_author"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,13 +59,12 @@
 
         <TextView
             android:id="@+id/article_author"
-            style="@style/TextAppearance.AppCompat.Body1"
+            style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="#1C1C1C"
-            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/article_date"
             app:layout_constraintEnd_toEndOf="@id/article_title"
             app:layout_constraintStart_toStartOf="@id/article_title"
@@ -78,7 +73,7 @@
 
         <TextView
             android:id="@+id/article_date"
-            style="@style/TextAppearance.AppCompat.Body1"
+            style="@style/TextAppearance.MaterialComponents.Overline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -86,7 +81,6 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="#1C1C1C"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/article_author"
             app:layout_constraintHorizontal_bias="1.0"

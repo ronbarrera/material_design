@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?colorPrimary"
-            app:titleEnabled="false"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <FrameLayout
@@ -27,10 +26,11 @@
                     android:id="@+id/photo"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:background="@color/photo_placeholder"
                     android:scaleType="centerCrop" />
 
                 <LinearLayout
-                    android:id="@+id/article_title_container"
+                    android:id="@+id/linear_layout_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#8C1C1C1C"
@@ -40,16 +40,18 @@
 
                     <TextView
                         android:id="@+id/article_title_detail"
-                        style="@style/TextAppearance.AppCompat.Headline"
+                        style="@style/TextAppearance.MaterialComponents.Headline5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/theme_white"
                         android:text="This is the title"/>
 
                     <TextView
                         android:id="@+id/article_author_detail"
-                        style="@style/TextAppearance.AppCompat.Body1"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/theme_white"
                         android:text="this is the details"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -68,54 +70,51 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/theme_background"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:background="@color/theme_white"
+        android:elevation="8dp">
+        <TextView
+            android:id="@+id/article_date_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-<!--        <TextView-->
-<!--            android:id="@+id/article_title"-->
-<!--            style="?android:attr/textAppearanceLarge"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingBottom="@dimen/detail_metabar_title_bottom_padding"-->
-<!--            android:fontFamily="sans-serif-condensed"-->
-<!--            android:textColor="#fff"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="@dimen/detail_title_text_size"-->
-<!--            android:lineSpacingMultiplier="0.9" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/article_byline"-->
-<!--            style="?android:attr/textAppearanceSmall"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="#8fff" />-->
+            android:layout_marginBottom="8dp"
+            android:text="Jun 20, 2013"/>
 
         <TextView
-            android:id="@+id/article_body"
-            style="?android:attr/textAppearanceMedium"
+            android:id="@+id/article_body_detail"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/detail_inner_horiz_margin"
-            android:layout_marginRight="@dimen/detail_inner_horiz_margin"
-            android:paddingBottom="@dimen/detail_body_bottom_margin"
-            android:textColor="@color/ltgray"
+            android:textColor="#1C1C1C"
             android:textColorLink="@color/theme_accent"
             android:textSize="@dimen/detail_body_text_size"
             android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />
-        </LinearLayout>
+
+    </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/share_fab"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:src="@drawable/ic_share"
         android:layout_margin="@dimen/fab_margin"
+        android:onClick="onShareClick"
+        app:backgroundTint="@color/theme_primary"
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end" />
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

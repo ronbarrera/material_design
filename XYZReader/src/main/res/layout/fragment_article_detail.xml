@@ -8,6 +8,7 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -44,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/theme_white"
-                        android:text="This is the title"/>
+                        tools:text="This is the title"/>
 
                     <TextView
                         android:id="@+id/article_author_detail"
@@ -52,8 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/theme_white"
-                        android:text="this is the details"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                        tools:text="this is the details"/>
 
                 </LinearLayout>
             </FrameLayout>
@@ -75,19 +75,21 @@
 
 
     <LinearLayout
+        android:id="@+id/main_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:padding="8dp"
         android:orientation="vertical"
         android:background="@color/theme_white"
-        android:elevation="8dp">
+        android:elevation="4dp">
         <TextView
             android:id="@+id/article_date_detail"
+            style="@style/TextAppearance.MaterialComponents.Overline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Jun 20, 2013"/>
+            tools:text="Jun 20, 2013"/>
 
         <TextView
             android:id="@+id/article_body_detail"
@@ -95,8 +97,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#1C1C1C"
-            android:textColorLink="@color/theme_accent"
-            android:textSize="@dimen/detail_body_text_size"
             android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />
 
     </LinearLayout>

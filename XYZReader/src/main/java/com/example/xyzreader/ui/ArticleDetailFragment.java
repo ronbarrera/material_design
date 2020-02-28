@@ -92,6 +92,8 @@ public class ArticleDetailFragment extends Fragment implements
     ImagePopup imagePopup;
     boolean isLand = false;
 
+    private LinearLayout main_linearlayout;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -190,23 +192,28 @@ public class ArticleDetailFragment extends Fragment implements
 
         imagePopup = new ImagePopup(getContext());
 
-        if(!isLand) {
+
+        main_linearlayout = mRootView.findViewById(R.id.main_linearlayout);
+
             appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
                 @Override
                 public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
                     float amountVisible = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
-                    articleTitleContainer.setAlpha(1 - amountVisible * 3);
-                    Log.d(TAG, "alpha is = " + articleTitleContainer.getAlpha());
 
-                    Log.d(TAG, "i is = " + i);
+                    if(!isLand)
+                        articleTitleContainer.setAlpha(1 - amountVisible * 3);
 
-                    if (articleTitleContainer.getAlpha() == -2)
+                    main_linearlayout.setElevation(14 - (amountVisible*10));
+
+                    if (!isLand && amountVisible == 1.0) {
                         menu.findItem(R.id.action_share).setVisible(true);
-                    else
+                    }
+                    else {
                         menu.findItem(R.id.action_share).setVisible(false);
+                    }
                 }
             });
-        }
+
 
         bindViews();
 

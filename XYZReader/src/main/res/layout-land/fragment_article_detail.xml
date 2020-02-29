@@ -108,9 +108,7 @@
                     android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />
 
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
-
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
@@ -125,6 +123,7 @@
             android:layout_width="wrap_content"
             android:src="@drawable/ic_expand"
             android:layout_margin="@dimen/fab_margin"
+            app:elevation="6dp"
             app:backgroundTint="@color/theme_primary"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -134,11 +133,9 @@
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_share"
             android:onClick="onShareClick"
+            app:elevation="6dp"
             app:backgroundTint="@color/theme_primary" />
     </LinearLayout>
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

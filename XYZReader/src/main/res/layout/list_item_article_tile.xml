@@ -35,13 +35,11 @@
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_margin="16dp"
             android:ellipsize="end"
             android:maxLines="4"
             android:textColor="@color/theme_white"
-            android:fontFamily="sans-serif-condensed-medium"
+            android:textStyle="bold"
             tools:text="Mysteries of teh Universe Solved" />
 
         <TextView
@@ -49,10 +47,12 @@
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:ellipsize="end"
             android:textColor="@color/theme_white"
+            android:textStyle="italic"
             tools:text="By Ron Belt" />
 
         <TextView
@@ -60,9 +60,9 @@
             style="@style/TextAppearance.MaterialComponents.Overline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:gravity="end"
             android:ellipsize="end"
             android:textColor="@color/theme_white"

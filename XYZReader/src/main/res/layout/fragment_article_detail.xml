@@ -35,7 +35,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#8C1C1C1C"
-                    android:padding="16dp"
                     android:layout_gravity="bottom"
                     android:orientation="vertical">
 
@@ -45,6 +44,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/theme_white"
+                        android:layout_margin="16dp"
+                        android:textStyle="bold"
                         tools:text="This is the title"/>
 
                     <TextView
@@ -53,6 +54,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/theme_white"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:textStyle="italic"
                         tools:text="this is the details"/>
 
                 </LinearLayout>
@@ -74,32 +79,43 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <LinearLayout
-        android:id="@+id/main_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:padding="8dp"
-        android:orientation="vertical"
-        android:background="@color/theme_white"
-        android:elevation="4dp">
-        <TextView
-            android:id="@+id/article_date_detail"
-            style="@style/TextAppearance.MaterialComponents.Overline"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/main_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            tools:text="Jun 20, 2013"/>
+            android:background="@color/theme_white"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="5dp"
+            app:cardCornerRadius="5dp">
 
-        <TextView
-            android:id="@+id/article_body_detail"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#1C1C1C"
-            android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/article_date_detail"
+                    style="@style/TextAppearance.MaterialComponents.Overline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    tools:text="Jun 20, 2013" />
+
+                <TextView
+                    android:id="@+id/article_body_detail"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:textColor="#1C1C1C" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.core.widget.NestedScrollView>
 

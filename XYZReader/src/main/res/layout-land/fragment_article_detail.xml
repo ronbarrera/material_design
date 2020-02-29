@@ -1,6 +1,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/theme_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -17,14 +18,12 @@
             app:contentScrim="?colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-
                 <ImageView
                     android:id="@+id/photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/photo_placeholder"
                     android:scaleType="centerCrop" />
-
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -41,69 +40,76 @@
         app:behavior_overlapTop="180dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/main_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="150dp"
             android:layout_marginEnd="150dp"
             android:layout_marginBottom="16dp"
-            android:orientation="vertical"
             android:background="@color/theme_white"
-            android:elevation="4dp">
+            android:elevation="5dp"
+            app:cardCornerRadius="5dp">
 
             <LinearLayout
-                android:id="@+id/linear_layout_detail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/theme_primary"
-                android:padding="16dp"
-                android:layout_gravity="bottom"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/article_title_detail"
-                    style="@style/TextAppearance.MaterialComponents.Headline5"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/theme_white"
-                    tools:text="This is the title"/>
+                    android:background="@color/theme_primary"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/article_title_detail"
+                        style="@style/TextAppearance.MaterialComponents.Headline5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:textColor="@color/theme_white"
+                        android:textStyle="bold"
+                        tools:text="This is the title"/>
+
+                    <TextView
+                        android:id="@+id/article_author_detail"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@color/theme_white"
+                        android:textStyle="italic"
+                        tools:text="this is the details" />
+                </LinearLayout>
+
 
                 <TextView
-                    android:id="@+id/article_author_detail"
-                    style="@style/TextAppearance.MaterialComponents.Body2"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/article_date_detail"
+                    style="@style/TextAppearance.MaterialComponents.Overline"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/theme_white"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    tools:text="this is the details" />
+                    android:gravity="end"
+                    android:layout_margin="16dp"
+                    tools:text="Jun 20, 2013"/>
+
+                <TextView
+                    android:id="@+id/article_body_detail"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="16dp"
+                    android:textColor="#1C1C1C"
+                    android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />
+
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/article_date_detail"
-                style="@style/TextAppearance.MaterialComponents.Overline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                tools:text="Jun 20, 2013"/>
-
-            <TextView
-                android:id="@+id/article_body_detail"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="16dp"
-                android:textColor="#1C1C1C"
-                android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />
-
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.core.widget.NestedScrollView>
 
